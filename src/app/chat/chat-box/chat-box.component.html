@@ -1,0 +1,183 @@
+<div class="container-fluid" *ngIf="userInfo">
+  <div class="row main-row">
+    <div class="col side-chat-list">
+      <div class="row heading">
+        <div class="col-auto heading-profile">
+          <img src="/src/assets/images/profle_main.svg" class="rounded-circle images" data-toggle="modal" data-target="#exampleModalCenter">
+
+          <!-- User info Modal -->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="height: auto">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">Profile</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="card text-center">
+                    <div class="card-header prof-image">
+                      <img src="/src/assets/images/profle_main.svg " class="rounded-circle image-modal">
+                      <div class="middle">
+                        <div class="text">Change picture</div>
+                      </div>
+                    </div>
+                    <div class="card-body ">
+                      <h5 class="card-title">{{userName}}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <span class="float-left">{{userInfo.mobileNumber}}</span>
+                        <span class="float-right">
+                          <i class="material-icons">call</i>
+                        </span>
+                      </li>
+                      <li class="list-group-item">
+                        <span class="float-left">
+                          <a href="mailto:{{userInfo.email}}?Subject=Hi%20from%20WhatsApp." target="_top">{{userInfo.email}}</a>
+                        </span>
+                        <span class="float-right">
+                          <i class="material-icons">email</i>
+                        </span>
+                      </li>
+                    </ul>
+                    <div class="card-footer text-muted">
+                      <span class="float-left"> Created on</span>
+                      <span class="float-right">
+                        {{userInfo.createdOn}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logout button -->
+        <div class="col heading-name">
+          <span class="heading-name-meta">{{userInfo.firstName}}
+            <p class="card-text">
+              <button class="btn-logout" data-toggle="modal" data-target="#logoutModal">Logout</button>
+              <app-modal [id]="'logoutModal'" [modalTitle]="'Do you want to logout?'" [buttonTitle]="'Logout'" (notify)="logout()"></app-modal>
+            </p>
+          </span>
+        </div>
+
+        <div class="col heading-newMessage">
+          <i class="material-icons md-dark md-36 float-right">camera</i>
+        </div>
+
+        <!-- create new chatRoom -->
+        <div class="col heading-newMessage">
+          <a data-toggle="modal" data-target="#createChatRoomModal" (click)="chatRoomName=''">
+            <i class="material-icons md-dark md-36 float-right">speaker_notes</i>
+          </a>
+          <div class="modal fade" id="createChatRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Create new chat Room</h5>
+                </div>
+                <div class="modal-body">
+                  <label for="chatRoomName">Chat Room Name</label>
+                  <input [(ngModel)]="chatRoomName" type="text" class="form-control" id="chatRoomName" placeholder="Enter the Room Name"
+                    required>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="cancel btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createChatRoom()">Create</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col heading-menu ">
+          <i class="material-icons md-dark md-36 float-right dropdown" href="#" role="button" id="dropdownMenuLink"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            more_vert</i>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li> <a class="dropdown-item" href="#">Action</a></li>
+            <li> <a class="dropdown-item" href="#">Another action</a></li>
+            <li> <a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- desktop notification: representational only  -->
+      <div class="row heading" style="background: #dcdedf">
+        <div class="col-auto heading-profile">
+          <img src="/src/assets/images/notification.svg" class="rounded-circle images">
+        </div>
+        <div class="col heading-newMessage">
+          Click
+          <a href="#" class="alert-link" data-toggle="modal" data-target="#exampleModal">here</a> to turn on desktop
+          notification.
+          <app-modal [id]="'exampleModal'" [modalTitle]="'Desktop notification turned on.'" [buttonTitle]="'Close'"
+            (notify)="close()"></app-modal>
+          
+        </div>
+      </div>
+
+      <div class="row sideBar">
+        <!-- side nav: my chat rooms list -->
+        
+        <div *ngIf="myChatRooms">
+          <hr class="hr-text" data-content="My Chat Rooms">
+          <div *ngFor="let chatRoom of myChatRooms">            
+              <div class="d-flex row sideBar-body">
+
+                <div class="col-auto sideBar-avatar">
+                  <img src="/src/assets/images/user-2.svg" class="rounded-circle sideNav-images">
+                </div>
+                <div class="col-auto">
+                  <span>{{chatRoom.chatRoomName}}</span>
+                  <p class="card-text">
+                    <small class="text-muted">{{chatRoom.modifiedOn}}</small>
+                  </p>
+                </div>
+                <div class="col float-right" >
+                    <button type="button" class="btn btn-primary btn-sm float-right" (click)="navigate(chatRoom)">Open
+                    </button>
+                  </div>
+              </div>
+
+          </div>
+        </div>
+
+
+        <!-- side nav: all chat rooms list -->
+
+        <!-- Mobile -->
+        <div *ngIf="allChatRooms">
+          <hr class="hr-text" data-content="All Chat Rooms">
+          <div *ngFor="let chatRoom of allChatRooms">            
+            <div class="d-flex row sideBar-body">
+
+              <div class="col-auto sideBar-avatar">
+                <img src="/src/assets/images/user-1.svg" class="rounded-circle sideNav-images">
+              </div>
+
+              <div class="col-auto">
+                <span>{{chatRoom.chatRoomName}}</span>
+                <p class="card-text">
+                  <small class="text-muted">{{chatRoom.modifiedOn}}</small>
+                </p>
+              </div>
+              <div class="col float-right" *ngIf="checkUserPresenceInChatRoom(chatRoom)">
+                <button type="button" class="btn btn-primary btn-sm float-right" (click)="navigate(chatRoom)">Join
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- left side nav ends -->
