@@ -19,9 +19,9 @@ import { map } from 'rxjs/operators';
 })
 export class AppService {
 
-  private baseUrlUsers = 'http://localhost:4900/api/v1/users';
-  private baseUrlChatRoom = 'http://localhost:4900/api/v1/chatRoom';
-  private baseUrlChatRoomMsgs = 'http://localhost:4900/api/v1/chatMessages';
+  private baseUrlUsers = 'http://localhost:3200/api/v1/users';
+  private baseUrlChatRoom = 'http://localhost:3200/api/v1/chatRoom';
+  private baseUrlChatRoomMsgs = 'http://localhost:3200/api/v1/chatMessages';
   constructor(public http: HttpClient) { }
 
   //------------------------------ user functions -------------------------------------- 

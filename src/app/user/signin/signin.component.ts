@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 // import { CookieService } from '@ngx-toolkit/cookie';
 // import { CookieService } from 'ngx-cookie-service';
-import { Cookie } from 'ng2-cookies/ng2-cookies'; 
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 
 @Component({
@@ -51,21 +51,21 @@ export class SigninComponent implements OnInit {
 
       if (apiResponse.status === 200) {
         console.log(apiResponse)
-        // this.cookieService.setItem('accept-cookie', 'true');
+        // this.cookieService.setItem('accept-cookie', 'true'); 
         // this.acceptedCookie = true; 
-        Cookie.set("authToken", apiResponse.data.authToken);      
+        Cookie.set("authToken", apiResponse.data.authToken);
         //console.log("authToken in cookie sigin component: "+at);
-        console.log("authToken from apiResponse in sigin component: "+apiResponse.data.authToken);
-        
+        console.log("authToken from apiResponse in sigin component: " + apiResponse.data.authToken);
+
         Cookie.set("userId", apiResponse.data.userDetails.userId);
 
         Cookie.set("userName", (apiResponse.data.userDetails.firstName + ' ' + apiResponse.data.userDetails.lastName).trim())
         //------------------------------------
-        
+
         this.appService.setUserInfoInLocalStorage(apiResponse.data.userDetails)
-        
+
         this.toastr.success(apiResponse.message)
-        this.router.navigate(['/chatRoom']);  
+        this.router.navigate(['/chatRoom']);
 
       } else {
 
@@ -77,9 +77,7 @@ export class SigninComponent implements OnInit {
 
     })
 
-    } // end condition
+  } // end condition
 
-
-  }
+}
   //---------------------- form validation end ----------------------------
-
