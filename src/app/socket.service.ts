@@ -13,7 +13,7 @@ import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 })
 export class SocketService {
 
-  private url = "http://localhost:3200";
+  private url = "http://api.appdevtest.xyz";
 
   private socket;
 
